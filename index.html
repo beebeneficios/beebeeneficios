@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login beeBeneficios</title>
+  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+  <base target="_top">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #FBF2D8;
+      color: #2b2b2b;
+      min-height: 100vh;
+    }
+    a { text-decoration: none; }
+
+    .top-nav { padding: 32px 0 0; text-align: center; }
+    .top-nav ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+    }
+    .top-nav a { color: #6b6b6b; font-size: 14px; font-weight: 500; }
+    .top-nav a:hover { color: #f5a623; }
+
+    .logo-wrap { text-align: center; padding: 20px 0 30px; }
+    .logo-wrap img { max-width: 260px; height: auto; display: inline-block; }
+
+    .login-wrap { display: flex; justify-content: center; padding: 0 16px 60px; }
+    .login-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+      border: 1px solid #f0ead8;
+      width: 100%; max-width: 700px;
+      padding: 50px 60px 45px;
+    }
+    .login-card h1 { font-size: 26px; font-weight: 800; text-align: center; margin: 0 0 6px; }
+    .login-card .subtitle { text-align: center; color: #555; font-size: 15px; margin-bottom: 34px; }
+
+    .form-group label { font-size: 14px; font-weight: 500; color: #333; margin-bottom: 6px; }
+    .form-control {
+      height: 48px; border-radius: 8px; border: 1px solid #e6e0ce;
+      font-size: 14px; padding: 8px 16px; background: #fcfbf7;
+    }
+    .form-control:focus {
+      border-color: #f5c542;
+      box-shadow: 0 0 0 .15rem rgba(245,197,66,.2);
+      background: #fff;
+    }
+
+    .password-wrap { position: relative; }
+    .password-wrap .toggle-password {
+      position: absolute; right: 16px; top: 50%;
+      transform: translateY(-50%); cursor: pointer; color: #555; font-size: 15px;
+    }
+
+    .btn-login {
+      width: 100%; height: 50px; border: none; border-radius: 8px;
+      background: linear-gradient(90deg, #F7B733 0%, #FFD23F 45%, #FFC800 100%);
+      color: #1e1e1e; font-weight: 700; font-size: 15px;
+      margin-top: 8px; transition: filter .2s ease;
+    }
+    .btn-login:hover { filter: brightness(1.05); }
+    .btn-login:disabled { opacity: .7; cursor: wait; }
+
+    .link-registro { text-align: center; font-size: 14px; color: #333; margin-top: 22px; }
+    .link-registro a { color: #1e1e1e; font-weight: 700; margin-left: 4px; }
+
+    .forgot-wrap { text-align: center; margin-top: 14px; }
+    .forgot-wrap a { color: #1e1e1e; font-weight: 700; font-size: 14px; text-decoration: underline; }
+
+    .invalid-feedback.error { display: none; color: #d9534f; font-size: 12px; }
+    .is-invalid ~ .invalid-feedback.error { display: block; }
+
+    footer { background-color: #FFC800; color: #1e1e1e; padding: 40px 0 0; }
+    .footer-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0 24px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+    }
+    .footer-col h3 { font-size: 16px; font-weight: 800; margin: 0 0 16px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 10px; font-size: 14px; line-height: 1.5; }
+    .footer-col a { color: #1e1e1e; font-weight: 500; }
+    .footer-logo { text-align: center; padding: 20px 0 30px; }
+    .footer-logo img { max-width: 260px; display: inline-block; }
+
+    /* ============ VISTA SIMULACIÓN + JUEGO ============ */
+    .simulacion-screen {
+      display: none;
+      background: linear-gradient(135deg, #FBF2D8 0%, #FFF6DA 100%);
+      min-height: 100vh;
+      padding: 50px 20px;
+    }
+    .simulacion-screen.active { display: block; }
+
+    .simulacion-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .simulacion-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 45px 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      border: 1px solid #f0ead8;
+      text-align: center;
+      position: sticky;
+      top: 30px;
+    }
+    .simulacion-card .icon-bee { font-size: 60px; margin-bottom: 10px; }
+    .simulacion-card h2 { font-size: 26px; font-weight: 800; color: #1e1e1e; margin: 0 0 16px; }
+    .simulacion-card p { font-size: 15px; color: #444; line-height: 1.7; margin-bottom: 14px; }
+    .simulacion-card .alert-box {
+      background: #FFF6DA;
+      border-left: 4px solid #F7B733;
+      padding: 14px 18px;
+      border-radius: 8px;
+      text-align: left;
+      margin: 22px 0;
+      font-size: 14px;
+      color: #6b4f00;
+    }
+    .simulacion-card .tips { text-align: left; font-size: 14px; line-height: 1.9; color: #333; }
+    .simulacion-card .btn-volver {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 12px 30px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #F7B733 0%, #FFD23F 45%, #FFC800 100%);
+      color: #1e1e1e;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: filter .2s ease;
+    }
+    .simulacion-card .btn-volver:hover { filter: brightness(1.05); }
+
+    .game-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 35px 35px 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      border: 1px solid #f0ead8;
+    }
+    .game-header { text-align: center; margin-bottom: 22px; }
+    .game-header .game-badge {
+      display: inline-block;
+      background: #1e1e1e;
+      color: #FFC800;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .game-header h3 { font-size: 22px; font-weight: 800; color: #1e1e1e; margin: 0 0 6px; }
+    .game-header p { font-size: 13px; color: #666; margin: 0; }
+
+    .game-stats { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+    .game-stat {
+      flex: 1;
+      background: #FBF2D8;
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+      border: 1px solid #f0ead8;
+    }
+    .game-stat .stat-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      color: #8a7a4a; text-transform: uppercase;
+    }
+    .game-stat .stat-value { font-size: 20px; font-weight: 800; color: #1e1e1e; line-height: 1.2; }
+
+    .game-progress { height: 8px; background: #f0ead8; border-radius: 4px; overflow: hidden; margin-bottom: 24px; }
+    .game-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #F7B733 0%, #FFC800 100%);
+      width: 0%;
+      transition: width .35s ease;
+    }
+
+    .email-sim {
+      border: 1px solid #e6e0ce;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: #fcfbf7;
+    }
+    .email-sim .email-topbar {
+      background: #f0ead8; padding: 8px 14px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .email-sim .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .email-sim .dot.red { background: #ff5f57; }
+    .email-sim .dot.yellow { background: #febc2e; }
+    .email-sim .dot.green { background: #28c840; }
+    .email-sim .email-body { padding: 16px 18px; }
+    .email-sim .email-field { font-size: 13px; margin-bottom: 8px; color: #333; line-height: 1.5; }
+    .email-sim .email-field strong { color: #1e1e1e; }
+    .email-sim .email-subject {
+      font-size: 15px; font-weight: 700; color: #1e1e1e;
+      margin: 10px 0 8px; padding-top: 10px; border-top: 1px dashed #e6e0ce;
+    }
+    .email-sim .email-text { font-size: 13.5px; color: #444; line-height: 1.6; }
+    .email-sim .email-cta {
+      display: inline-block; margin-top: 12px;
+      padding: 8px 18px; background: #1e1e1e; color: #FFC800;
+      border-radius: 6px; font-size: 13px; font-weight: 600;
+    }
+
+    .game-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .game-btn {
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s ease;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .game-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .game-btn.btn-phishing { background: #fdecea; color: #c0392b; border-color: #f5b7b1; }
+    .game-btn.btn-phishing:hover:not(:disabled) { background: #c0392b; color: #fff; }
+    .game-btn.btn-legit { background: #eafaf1; color: #1e8449; border-color: #a9dfbf; }
+    .game-btn.btn-legit:hover:not(:disabled) { background: #1e8449; color: #fff; }
+
+    .game-feedback {
+      margin-top: 18px; padding: 14px 18px;
+      border-radius: 10px; font-size: 13.5px; line-height: 1.6;
+      display: none; animation: fadeIn .3s ease;
+    }
+    .game-feedback.show { display: block; }
+    .game-feedback.correct { background: #eafaf1; border-left: 4px solid #1e8449; color: #145a32; }
+    .game-feedback.wrong { background: #fdecea; border-left: 4px solid #c0392b; color: #7b241c; }
+
+    .game-result { text-align: center; padding: 20px 10px; display: none; }
+    .game-result.show { display: block; animation: fadeIn .4s ease; }
+    .game-result .result-emoji { font-size: 52px; margin-bottom: 8px; }
+    .game-result h4 { font-size: 20px; font-weight: 800; margin: 0 0 8px; color: #1e1e1e; }
+    .game-result p { font-size: 14px; color: #555; margin: 0 0 18px; line-height: 1.6; }
+    .game-result .result-score { font-size: 32px; font-weight: 800; color: #F7B733; margin-bottom: 6px; }
+
+    .btn-restart {
+      padding: 11px 26px; border-radius: 8px; border: none;
+      background: linear-gradient(90deg, #F7B733 0%, #FFD23F 45%, #FFC800 100%);
+      color: #1e1e1e; font-weight: 700; font-size: 14px; cursor: pointer;
+      transition: filter .2s ease;
+    }
+    .btn-restart:hover { filter: brightness(1.05); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .simulacion-grid { grid-template-columns: 1fr; }
+      .simulacion-card { position: static; }
+    }
+
+    @media (max-width: 768px) {
+      .login-card { padding: 34px 24px 30px; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .top-nav ul { gap: 16px; }
+      .top-nav a { font-size: 13px; }
+      .simulacion-card { padding: 30px 22px; }
+      .game-card { padding: 26px 20px 30px; }
+      .game-actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="vista-login">
+
+    <nav class="top-nav">
+      <ul>
+        <li><a href="#" class="track" data-ev="CLICK_NAV_SOBRE" data-toggle="modal" data-target=".modal-sobreBeeBeneficios">Sobre beeBeneficios</a></li>
+        <li><a href="https://beebeneficios.com.pe/hola/pasos.de.registro" target="_blank" class="track" data-ev="CLICK_NAV_PASOS">Pasos de registro</a></li>
+        <li><a href="https://beebeneficios.com.pe/hola/preguntas" target="_blank" class="track" data-ev="CLICK_NAV_PREGUNTAS">Preguntas frecuentes</a></li>
+      </ul>
+    </nav>
+
+    <div class="logo-wrap">
+      <img alt="beeBeneficios" src="<?!= getLogoDataUri() ?>">
+    </div>
+
+    <div class="login-wrap">
+      <div class="login-card">
+        <h1>Inicia sesión</h1>
+        <p class="subtitle">¡Bienvenido a beeBeneficios!</p>
+
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label for="input-usuario">Correo electrónico</label>
+            <input type="email" class="form-control" id="input-usuario" autocomplete="off">
+            <div class="invalid-feedback error" id="input-usuario-error">Usuario incorrecto</div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-password">Contraseña</label>
+            <div class="password-wrap">
+              <input id="input-password" type="password" class="form-control" autocomplete="off">
+              <span toggle="#input-password" class="fa-solid fa-eye-slash toggle-password"></span>
+            </div>
+            <div class="invalid-feedback error" id="input-password-error">Contraseña incorrecta</div>
+          </div>
+
+          <button type="button" id="btn-ingresar" class="btn-login">Iniciar sesión</button>
+
+          <div class="link-registro">
+            ¿No tienes cuenta?
+            <a href="registro" class="track" data-ev="CLICK_REGISTRO">Regístrate aquí</a>
+          </div>
+
+          <div class="forgot-wrap">
+            <a href="#" class="track" data-ev="CLICK_OLVIDE" data-toggle="modal" data-target=".modal-contra-olvidada">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h3>Nosotros</h3>
+          <ul>
+            <li><a href="#" class="track" data-ev="CLICK_FOOTER_ACERCA" data-toggle="modal" data-target=".modal-acercaDeBee">Acerca de Bee</a></li>
+            <li><a href="#" class="track" data-ev="CLICK_FOOTER_SOBRE" data-toggle="modal" data-target=".modal-sobreBeeBeneficios">Sobre BeeBeneficios</a></li>
+            <li><a href="https://beebeneficios.com.pe/hola/preguntas" target="_blank" class="track" data-ev="CLICK_FOOTER_PREGUNTAS">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>BeeBeneficios</h3>
+          <ul>
+            <li><a href="https://beebeneficios.com.pe/hola/terminos" target="_blank" class="track" data-ev="CLICK_FOOTER_TERMINOS">Términos &amp; condiciones</a></li>
+            <li><a href="https://beebeneficios.com.pe/hola/politicas" target="_blank" class="track" data-ev="CLICK_FOOTER_POLITICAS">Políticas de privacidad</a></li>
+            <li><a href="https://beebeneficios.com.pe/hola/politicadeprotecciondedatos" target="_blank" class="track" data-ev="CLICK_FOOTER_DATOS">Políticas de protección de Datos</a></li>
+            <li><a href="https://beebeneficios.com.pe/hola/libro" target="_blank" class="track" data-ev="CLICK_FOOTER_LIBRO">Libro de reclamaciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>¿Tienes alguna duda?</h3>
+          <ul>
+            <li>Escríbenos a<br>Whatsapp: 992192643</li>
+            <li>De<br>Lunes a viernes: 09:30 am a 6:30 pm.<br>Sábado: 09:00 am a 1:00 pm.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-logo">
+        <img alt="beeBeneficios" src="<?!= getLogoDataUri() ?>">
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ====== VISTA SIMULACIÓN + JUEGO ====== -->
+  <div id="vista-simulacion" class="simulacion-screen">
+    <div class="simulacion-grid">
+
+      <!-- Columna izquierda: mensaje educativo -->
+      <div class="simulacion-card">
+        <div class="icon-bee">🐝</div>
+        <h2>¡Caíste en una simulación!</h2>
+
+        <p>
+          Este formulario <strong>no es un login real</strong>. Forma parte de una
+          <strong>campaña de concientización sobre seguridad digital</strong>.
+        </p>
+
+        <div class="alert-box">
+          <strong>⚠️ Lo que acaba de ocurrir:</strong><br>
+          Si esta página hubiera sido creada por un atacante, tus credenciales
+          (correo y contraseña) ya estarían en manos de un desconocido.
+        </div>
+
+        <div class="tips">
+          <strong>¿Cómo protegerte?</strong><br>
+          • Verifica siempre la URL antes de ingresar datos.<br>
+          • Desconfía de enlaces que llegan por correo, SMS o WhatsApp.<br>
+          • Usa contraseñas distintas en cada servicio.<br>
+          • Activa la verificación en dos pasos (2FA).
+        </div>
+      </div>
+
+      <!-- Columna derecha: juego de phishing -->
+      <div class="game-card">
+        <div class="game-header">
+          <span class="game-badge">🎯 Minijuego</span>
+          <h3>Detecta el Phishing</h3>
+          <p>¿Este correo es legítimo o un intento de phishing?</p>
+        </div>
+
+        <div class="game-stats">
+          <div class="game-stat">
+            <div class="stat-label">Pregunta</div>
+            <div class="stat-value"><span id="g-q">1</span>/<span id="g-total">6</span></div>
+          </div>
+          <div class="game-stat">
+            <div class="stat-label">Aciertos</div>
+            <div class="stat-value" id="g-score">0</div>
+          </div>
+          <div class="game-stat">
+            <div class="stat-label">Racha</div>
+            <div class="stat-value" id="g-streak">0</div>
+          </div>
+        </div>
+
+        <div class="game-progress">
+          <div class="game-progress-bar" id="g-progress"></div>
+        </div>
+
+        <div class="email-sim" id="email-sim">
+          <div class="email-topbar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="email-body">
+            <div class="email-field"><strong>De:</strong> <span id="e-from">—</span></div>
+            <div class="email-field"><strong>Para:</strong> <span id="e-to">—</span></div>
+            <div class="email-subject" id="e-subject">—</div>
+            <div class="email-text" id="e-text">—</div>
+            <div class="email-cta" id="e-cta">—</div>
+          </div>
+        </div>
+
+        <div class="game-actions" id="game-actions">
+          <button class="game-btn btn-phishing" onclick="responderPhishing(true)">
+            <i class="fa-solid fa-triangle-exclamation"></i> Es phishing
+          </button>
+          <button class="game-btn btn-legit" onclick="responderPhishing(false)">
+            <i class="fa-solid fa-circle-check"></i> Es legítimo
+          </button>
+        </div>
+
+        <div class="game-feedback" id="game-feedback"></div>
+
+        <div class="game-result" id="game-result">
+          <div class="result-emoji" id="r-emoji">🏆</div>
+          <h4 id="r-title">¡Juego completado!</h4>
+          <div class="result-score" id="r-score">0 / 6</div>
+          <p id="r-message">Buen trabajo detectando intentos de phishing.</p>
+          <button class="btn-restart" onclick="reiniciarJuego()">🔄 Jugar de nuevo</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODALES -->
+  <div class="modal fade modal-acercaDeBee" id="modal-acercaDeBee" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Acerca de Bee</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>bee acompaña tus propósitos creando e impulsando soluciones creativas para atender las necesidades de sus clientes, corporativos o finales, brindándoles plataformas digitales que les permitan obtener beneficios, a través de alianzas con otras empresas, integrándolas y acompañándolas en el logro de su visión.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-sobreBeeBeneficios" id="modal-sobreBeeBeneficios" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sobre BeeBeneficios</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>Es un programa que atiende a empresas y sus trabajadores a través de activaciones presenciales con visitas "in house" y digitales a través de una plataforma digital. Acercamos las marcas a clientes potenciales a través de nuestra plataforma y generamos interacción con ellos con el apoyo de las áreas de gestión humana.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-contra-olvidada" id="modal-contra-olvidada" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">¿Olvidaste tu contraseña?</h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body" id="form-recuperar">
+          <p>Ingresa el correo electrónico con el que te registraste para enviarte un enlace de recuperación.</p>
+          <div class="form-group">
+            <label for="input-correo-rest">Correo electrónico</label>
+            <input type="email" class="form-control" id="input-correo-rest">
+            <div class="invalid-feedback error" id="input-correo-rest-error">Correo inválido</div>
+          </div>
+        </div>
+        <div class="modal-body" id="form-step2" style="display:none;">
+          <h5 class="mb-2">Enlace enviado</h5>
+          <p>Te hemos enviado un enlace de recuperación a:<br>
+            <span id="spanemail" style="font-weight:600;">mfernanda@gmail.com</span>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-login" id="btn-enviar-enlace" style="max-width:180px;">Enviar enlace</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    /* =========================================================
+       VISIT ID
+       ========================================================= */
+    function generarVisitId() {
+      var rnd = Math.random().toString(36).substring(2, 8);
+      var ts  = Date.now().toString(36);
+      return 'bee_' + ts + '_' + rnd;
+    }
+
+    var VISIT_ID = sessionStorage.getItem('bee_visit_id');
+    if (!VISIT_ID) {
+      VISIT_ID = generarVisitId();
+      sessionStorage.setItem('bee_visit_id', VISIT_ID);
+    }
+
+    /* =========================================================
+       METADATOS GLOBALES
+       ========================================================= */
+    var META = {
+      visitId: VISIT_ID,
+      ip: '',
+      pais: '',
+      ciudad: '',
+      ua: navigator.userAgent,
+      plataforma: navigator.platform,
+      resolucion: window.screen.width + 'x' + window.screen.height,
+      idioma: navigator.language || navigator.userLanguage,
+    };
+
+    function cargarIPyGeo() {
+      return fetch('https://ipapi.co/json/')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          META.ip = data.ip || '';
+          META.pais = data.country_name || '';
+          META.ciudad = data.city || '';
+        })
+        .catch(function () {
+          return fetch('https://api.ipify.org?format=json')
+            .then(function (r) { return r.json(); })
+            .then(function (d) { META.ip = d.ip || ''; })
+            .catch(function () { META.ip = 'desconocida'; });
+        });
+    }
+
+    /* =========================================================
+       ENVÍO DE EVENTOS
+       ========================================================= */
+    function enviarEvento(nombreEvento) {
+      var payload = Object.assign({}, META, { evento: nombreEvento });
+      google.script.run
+        .withFailureHandler(function (err) { console.warn('track error', err); })
+        .registrarEvento(payload);
+    }
+
+    /* =========================================================
+       INICIALIZACIÓN
+       ========================================================= */
+    document.addEventListener('DOMContentLoaded', function () {
+      window.__inicio = Date.now();
+
+      cargarIPyGeo().then(function () {
+        enviarEvento('VISITA');
+
+        window.addEventListener('beforeunload', function () {
+          var segundos = Math.round((Date.now() - window.__inicio) / 1000);
+          enviarEvento('SALIDA_' + segundos + 's');
+        });
+      });
+    });
+
+    /* =========================================================
+       TRACKING DE CLICS
+       ========================================================= */
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('.track');
+      if (!el) return;
+      var ev = el.getAttribute('data-ev') || 'CLICK_GENERICO';
+      enviarEvento(ev);
+    });
+
+    /* =========================================================
+       LOGIN / RECUPERAR
+       ========================================================= */
+    $(function () {
+
+      $('.toggle-password').on('click', function () {
+        var input = $($(this).attr('toggle'));
+        var type = input.attr('type') === 'password' ? 'text' : 'password';
+        input.attr('type', type);
+        $(this).toggleClass('fa-eye-slash fa-eye');
+      });
+
+      // ✅ Botón Iniciar sesión
+      $('#btn-ingresar').on('click', function () {
+        var $btn = $(this);
+        var usuario = $('#input-usuario').val().trim();
+        var password = $('#input-password').val().trim();
+        var ok = true;
+
+        // Validación: correo debe terminar en @vivela.lat
+        if (!usuario || !usuario.toLowerCase().endsWith('@vivela.lat')) {
+          $('#input-usuario').addClass('is-invalid');
+          $('#input-usuario-error').text('Usuario incorrecto');
+          ok = false;
+        } else {
+          $('#input-usuario').removeClass('is-invalid');
+        }
+
+        if (!password) {
+          $('#input-password').addClass('is-invalid');
+          ok = false;
+        } else {
+          $('#input-password').removeClass('is-invalid');
+        }
+
+        if (!ok) return;
+
+        $btn.prop('disabled', true).text('Iniciando sesión...');
+        enviarEvento('CLICK_LOGIN');
+
+        var meta = Object.assign({}, META);
+
+        google.script.run
+          .withSuccessHandler(function () {
+            mostrarSimulacion();
+          })
+          .withFailureHandler(function (e) {
+            $btn.prop('disabled', false).text('Iniciar sesión');
+            alert('Error: ' + e.message);
+          })
+          .validarLogin(usuario, password, meta);
+      });
+
+      // ✅ Botón Enviar enlace (recuperar contraseña)
+      $('#btn-enviar-enlace').on('click', function () {
+        var $btn = $(this);
+        var correo = $('#input-correo-rest').val().trim();
+        if (!correo) { $('#input-correo-rest').addClass('is-invalid'); return; }
+        $('#input-correo-rest').removeClass('is-invalid');
+
+        $btn.prop('disabled', true).text('Enviando...');
+        $('#spanemail').text(correo);
+
+        var meta = Object.assign({}, META);
+
+        google.script.run
+          .withSuccessHandler(function () {
+            $btn.prop('disabled', false).text('Enviar enlace');
+            $('#form-recuperar').hide();
+            $('#form-step2').show();
+          })
+          .withFailureHandler(function (e) {
+            $btn.prop('disabled', false).text('Enviar enlace');
+            alert('Error: ' + e.message);
+          })
+          .enviarEnlaceRecuperacion(correo, meta);
+      });
+    });
+
+    /* =========================================================
+       MOSTRAR SIMULACIÓN
+       ========================================================= */
+    function mostrarSimulacion() {
+      document.getElementById('vista-login').style.display = 'none';
+      document.getElementById('vista-simulacion').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      iniciarJuego();
+    }
+
+    function cerrarVentana() {
+      window.open('', '_self', '');
+      window.close();
+
+      setTimeout(function () {
+        if (!window.closed) { window.top.close(); }
+      }, 200);
+
+      setTimeout(function () {
+        if (!window.closed) {
+          document.body.innerHTML = `
+            <div style="font-family:'Poppins',sans-serif;background:#FBF2D8;min-height:100vh;
+                        display:flex;align-items:center;justify-content:center;padding:20px;">
+              <div style="background:#fff;max-width:480px;width:100%;text-align:center;
+                          padding:40px 30px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);">
+                <div style="font-size:52px;margin-bottom:12px;">🐝</div>
+                <h2 style="font-weight:800;color:#1e1e1e;margin:0 0 12px;">Ya puedes cerrar esta pestaña</h2>
+                <p style="color:#555;font-size:14px;line-height:1.6;">
+                  Ciérrala con <strong>Ctrl + W</strong> (Windows) o <strong>⌘ + W</strong> (Mac).
+                </p>
+              </div>
+            </div>`;
+        }
+      }, 500);
+    }
+
+    /* =========================================================
+       JUEGO: DETECTA EL PHISHING
+       ========================================================= */
+    var PREGUNTAS = [
+      {
+        from: "soporte@vivela-lat.com",
+        to: "tu.correo@vivela.lat",
+        subject: "⚠️ Tu cuenta será bloqueada en 24 horas",
+        text: "Detectamos actividad inusual en tu cuenta. Para evitar el bloqueo permanente, haz clic en el siguiente enlace y confirma tus datos:",
+        cta: "Verificar mi cuenta ahora",
+        phishing: true,
+        razon: "El dominio <strong>vivela-lat.com</strong> imita a <strong>vivela.lat</strong> (con guion y .com en lugar de .lat). Es un claro intento de phishing."
+      },
+      {
+        from: "segurinfo@vivela.lat",
+        to: "tu.correo@vivela.lat",
+        subject: "Recordatorio: reunión de equipo mañana 10:00 am",
+        text: "Hola, te recordamos que mañana tenemos reunión de equipo a las 10:00 am en la sala principal. Adjuntamos la agenda del día.",
+        cta: "Ver agenda",
+        phishing: false,
+        razon: "El dominio es correcto (<strong>@vivela.lat</strong>), el tono es institucional y no pide datos personales ni urgentes."
+      },
+      {
+        from: "soporte@viveia.lat",
+        to: "tu.correo@vivela.lat",
+        subject: "Actualiza tu contraseña AHORA o perderás acceso",
+        text: "Tu contraseña expiró. Debes cambiarla en los próximos 30 minutos o tu cuenta será suspendida. Ingresa aquí:",
+        cta: "Cambiar contraseña urgente",
+        phishing: true,
+        razon: "El dominio dice <strong> viveia </strong> en lugar de <strong> vivela </strong>, por lo tanto es  phishing."
+      },
+      {
+        from: "comunicacioninterna@vivela.lat",
+        to: "tu.correo@vivela.lat",
+        subject: "¡YA ESTA AQUÍ!",
+        text: "Ya puedes consultar tu boleta de pago correspondiente al mes de septiembre desde el portal de colaboradores.",
+        cta: "Ver boleta",
+        phishing: false,
+        razon: "El dominio es legítimo, el mensaje es informativo y no solicita datos sensibles ni enlaces sospechosos."
+      },
+      {
+        from: "premios@vivela.lat-premios.net",
+        to: "tu.correo@vivela.lat",
+        subject: "🎉 ¡Ganaste un bono de S/500! Reclama aquí",
+        text: "Fuiste seleccionado entre los colaboradores para recibir un bono especial. Para reclamarlo solo necesitas confirmar tu número de tarjeta y contraseña:",
+        cta: "Reclamar mi bono",
+        phishing: true,
+        razon: "El dominio real es <strong>vivela.lat-premios.net</strong> (un subdominio externo). Además pide <strong>datos bancarios y contraseña</strong>: nunca hagas eso."
+      },
+      {
+        from: "soporte@vivela.lat",
+        to: "tu.correo@vivela.lat",
+        subject: "Mantenimiento programado del sistema este sábado",
+        text: "El área de TI informa que el sábado de 8:00 pm a 11:00 pm se realizará mantenimiento programado. Durante ese horario el sistema podría estar intermitente.",
+        cta: "Más información",
+        phishing: false,
+        razon: "Comunicación interna típica, sin urgencia, sin pedir datos y desde el dominio correcto."
+      }
+    ];
+
+    var juego = {
+      idx: 0,
+      score: 0,
+      streak: 0,
+      respondida: false
+    };
+
+    function iniciarJuego() {
+      juego = { idx: 0, score: 0, streak: 0, respondida: false };
+      $('#game-result').removeClass('show');
+      $('#game-feedback').removeClass('show correct wrong').text('');
+      $('#game-actions').show();
+      $('#email-sim').show();
+      $('#g-total').text(PREGUNTAS.length);
+      actualizarStats();
+      cargarPregunta();
+    }
+
+    function reiniciarJuego() { iniciarJuego(); }
+
+    function actualizarStats() {
+      $('#g-q').text(Math.min(juego.idx + 1, PREGUNTAS.length));
+      $('#g-score').text(juego.score);
+      $('#g-streak').text(juego.streak);
+      var pct = (juego.idx / PREGUNTAS.length) * 100;
+      $('#g-progress').css('width', pct + '%');
+    }
+
+    function cargarPregunta() {
+      var p = PREGUNTAS[juego.idx];
+      $('#e-from').text(p.from);
+      $('#e-to').text(p.to);
+      $('#e-subject').text(p.subject);
+      $('#e-text').text(p.text);
+      $('#e-cta').text(p.cta);
+
+      $('#game-feedback').removeClass('show correct wrong').text('');
+      $('#game-actions .game-btn').prop('disabled', false);
+      juego.respondida = false;
+      actualizarStats();
+    }
+
+    function responderPhishing(dijoEsPhishing) {
+      if (juego.respondida) return;
+      juego.respondida = true;
+
+      var p = PREGUNTAS[juego.idx];
+      var acerto = (dijoEsPhishing === p.phishing);
+      var $fb = $('#game-feedback');
+
+      if (acerto) {
+        juego.score++;
+        juego.streak++;
+        $fb.removeClass('wrong').addClass('show correct')
+           .html('<strong>✅ ¡Correcto!</strong><br>' + p.razon);
+      } else {
+        juego.streak = 0;
+        var correcto = p.phishing ? 'phishing' : 'legítimo';
+        $fb.removeClass('correct').addClass('show wrong')
+           .html('<strong>❌ Incorrecto.</strong> Este correo era <strong>' + correcto + '</strong>.<br>' + p.razon);
+      }
+
+      $('#game-actions .game-btn').prop('disabled', true);
+      actualizarStats();
+
+      setTimeout(function () {
+        juego.idx++;
+        if (juego.idx >= PREGUNTAS.length) {
+          mostrarResultado();
+        } else {
+          cargarPregunta();
+        }
+      }, 2200);
+    }
+
+    function mostrarResultado() {
+      $('#email-sim').hide();
+      $('#game-actions').hide();
+      $('#game-feedback').removeClass('show');
+
+      var total = PREGUNTAS.length;
+      var pct = (juego.score / total) * 100;
+      var emoji, titulo, mensaje;
+
+      if (pct === 100) {
+        emoji = '🏆'; titulo = '¡Perfecto!'; mensaje = 'Eres un experto detectando phishing. ¡Sigue así!';
+      } else if (pct >= 70) {
+        emoji = '🎯'; titulo = '¡Muy bien!'; mensaje = 'Tienes buen ojo para detectar amenazas. Repasa los casos fallados.';
+      } else if (pct >= 40) {
+        emoji = '💡'; titulo = 'Puedes mejorar'; mensaje = 'Recuerda: revisa siempre el remitente y desconfía de la urgencia.';
+      } else {
+        emoji = '🐝'; titulo = '¡Cuidado!'; mensaje = 'El phishing es más común de lo que crees. Repasa los consejos y vuelve a intentarlo.';
+      }
+
+      $('#r-emoji').text(emoji);
+      $('#r-title').text(titulo);
+      $('#r-score').text(juego.score + ' / ' + total);
+      $('#r-message').text(mensaje);
+      $('#game-result').addClass('show');
+      $('#g-progress').css('width', '100%');
+
+      enviarEvento('JUEGO_PHISHING_FIN_' + juego.score + 'de' + total);
+    }
+
+      // Esta función envía la altura real de tu contenido a Google Sites
+      function resizeIframe() {
+        var height = document.documentElement.scrollHeight || document.body.scrollHeight;
+        // Envía un mensaje a la página padre (Google Sites) con la altura
+        window.parent.postMessage({
+          'sites-embed-height': height
+        }, '*');
+      }
+
+      // Ejecutar al cargar y cuando cambie el contenido
+      window.addEventListener('load', resizeIframe);
+      window.addEventListener('resize', resizeIframe);
+
+      // Opcional: si tu juego cambia de tamaño, ejecuta resizeIframe() al final de cada cambio
+
+
+  </script>
+</body>
+</html>
