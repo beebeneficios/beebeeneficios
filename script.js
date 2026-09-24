@@ -52,16 +52,15 @@ function cargarIPyGeo() {
    ENVÍO POR IFRAME OCULTO (confiable, sin CORS)
    ========================================================= */
 function enviarAppsScript(payload) {
-  return fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(payload)
-  }).catch(function (err) {
-    console.warn('Error al enviar a Apps Script:', err);
+  return new Promise(function (resolve) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', APPS_SCRIPT_URL, true);
+    xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
+    xhr.onload = function () { resolve({ ok: true }); };
+    xhr.onerror = function () { resolve({ ok: false }); };
+    xhr.send(JSON.stringify(payload));
   });
 }
-
 function enviarEvento(nombreEvento) {
   enviarAppsScript({
     accion: 'evento',
