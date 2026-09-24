@@ -1,7 +1,7 @@
 /* =========================================================
    CONFIGURACIÓN — pega aquí la URL de tu Web App
    ========================================================= */
-var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec';
+var APPS_SCRIPT_URL = 'https://script.google.com/a/macros/vivela.lat/s/AKfycbyGmi9ppgI2uw01LVcU1sl_o23PPMFg0MGoaopFrpLqbcXgiiCdr1dpKd5P6wRCJ1yH/exec';
 
 /* =========================================================
    VISIT ID
