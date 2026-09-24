@@ -1,7 +1,7 @@
 /* =========================================================
    CONFIGURACIÓN — pega aquí la URL de tu Web App
    ========================================================= */
-var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxeuHVHtn-tytH7-j2rjGZBz1xSu8UBXmRDZag_69L4ZkPGp5yrGdkmEKHzBtj2klC/exec';
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywmDW7bajMBHMnMXUxvX2bmCJoUBW2KzmJZbr3HL7X8CCCgJMN0T2mor6usxA6X1SX/exec';
 
 /* =========================================================
    VISIT ID
