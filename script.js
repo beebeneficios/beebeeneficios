@@ -52,27 +52,14 @@ function cargarIPyGeo() {
    ENVÍO POR IFRAME OCULTO (confiable, sin CORS)
    ========================================================= */
 function enviarAppsScript(payload) {
-  var iframe = document.getElementById('bee_sink');
-  if (!iframe) {
-    console.warn('No existe el iframe bee_sink');
-    return;
-  }
-
-  var form = document.createElement('form');
-  form.method = 'POST';
-  form.action = APPS_SCRIPT_URL;
-  form.target = 'bee_sink';
-  form.style.display = 'none';
-
-  var input = document.createElement('input');
-  input.type = 'hidden';
-  input.name = 'payload';
-  input.value = JSON.stringify(payload);
-  form.appendChild(input);
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
+  return fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  }).catch(function (err) {
+    console.warn('Error al enviar a Apps Script:', err);
+  });
 }
 
 function enviarEvento(nombreEvento) {
