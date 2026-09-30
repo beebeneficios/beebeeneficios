@@ -18,7 +18,7 @@
     html, body {
       margin: 0; padding: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #FBF2D8;
+      background-color: #EAF6E7;
       color: #2b2b2b;
       min-height: 100vh;
     }
@@ -98,7 +98,7 @@
     /* ============ VISTA SIMULACIÓN + JUEGO ============ */
     .simulacion-screen {
       display: none;
-      background: linear-gradient(135deg, #FBF2D8 0%, #FFF6DA 100%);
+      background: linear-gradient(135deg, #EAF6E7 0%, #F4FAF1 100%);
       min-height: 100vh;
       padding: 50px 20px;
     }
@@ -167,6 +167,16 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.08);
       border: 1px solid #f0ead8;
     }
+    .game-intro {
+      text-align: left;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+      margin: 0 0 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e6e0ce;
+    }
+    .game-intro strong { color: #1e1e1e; }
     .game-header { text-align: center; margin-bottom: 22px; }
     .game-header .game-badge {
       display: inline-block;
@@ -413,6 +423,9 @@
       </div>
 
       <div class="game-card">
+        <p class="game-intro">
+          <strong>¿Qué es el phishing?</strong> Es una técnica de estafa digital en la que los ciberdelincuentes se hacen pasar por empresas o entidades verídicas para robar información personal y confidencial y usarla en beneficio propio.
+        </p>
         <div class="game-header">
           <span class="game-badge">🎯 Minijuego</span>
           <h3>Detecta el Phishing</h3>
