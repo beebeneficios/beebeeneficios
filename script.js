@@ -213,6 +213,15 @@ var PREGUNTAS = [
     phishing: true,
     razon: "El dominio dice <strong>viveia</strong> en lugar de <strong>vivela</strong>, por lo tanto es phishing."
   },
+  {
+    from: "premios@vivela.lat-premios.net",
+    to: "tu.correo@vivela.lat",
+    subject: "🎉 ¡Ganaste un bono de S/500! Reclama aquí",
+    text: "Fuiste seleccionado entre los colaboradores para recibir un bono especial. Para reclamarlo solo necesitas confirmar tu número de tarjeta y contraseña:",
+    cta: "Reclamar mi bono",
+    phishing: true,
+    razon: "El dominio real es <strong>vivela.lat-premios.net</strong> (un subdominio externo). Además pide <strong>datos bancarios y contraseña</strong>: nunca hagas eso."
+  }
 ];
 
 var juego = { idx: 0, score: 0, streak: 0, respondida: false };
