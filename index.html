@@ -41,12 +41,18 @@
       border-radius: 14px;
       box-shadow: 0 4px 20px rgba(0,0,0,.05);
       border: 1px solid #f0ead8;
-      width: 100%; max-width: 700px;
+      width: 100%; max-width: 620px;
       padding: 50px 60px 45px;
     }
     .login-card h1 { font-size: 26px; font-weight: 800; text-align: center; margin: 0 0 6px; }
     .login-card .subtitle { text-align: center; color: #555; font-size: 15px; margin-bottom: 34px; }
     .usuario-vivela { color: #72bd7b; font-weight: 700; }
+
+    .login-card form .form-group {
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     .form-group label { font-size: 14px; font-weight: 500; color: #333; margin-bottom: 6px; }
     .form-control {
@@ -70,6 +76,12 @@
       background: linear-gradient(90deg, #F7B733 0%, #FFD23F 45%, #FFC800 100%);
       color: #1e1e1e; font-weight: 700; font-size: 15px;
       margin-top: 8px; transition: filter .2s ease;
+    }
+    .login-card form > .btn-login {
+      display: block;
+      width: 75%;
+      margin-left: auto;
+      margin-right: auto;
     }
     .btn-login:hover { filter: brightness(1.05); }
     .btn-login:disabled { opacity: .7; cursor: wait; }
