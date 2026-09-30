@@ -213,33 +213,6 @@ var PREGUNTAS = [
     phishing: true,
     razon: "El dominio dice <strong>viveia</strong> en lugar de <strong>vivela</strong>, por lo tanto es phishing."
   },
-  {
-    from: "comunicacioninterna@vivela.lat",
-    to: "tu.correo@vivela.lat",
-    subject: "¡YA ESTA AQUÍ!",
-    text: "Ya puedes consultar tu boleta de pago correspondiente al mes de septiembre desde el portal de colaboradores.",
-    cta: "Ver boleta",
-    phishing: false,
-    razon: "El dominio es legítimo, el mensaje es informativo y no solicita datos sensibles ni enlaces sospechosos."
-  },
-  {
-    from: "premios@vivela.lat-premios.net",
-    to: "tu.correo@vivela.lat",
-    subject: "🎉 ¡Ganaste un bono de S/500! Reclama aquí",
-    text: "Fuiste seleccionado entre los colaboradores para recibir un bono especial. Para reclamarlo solo necesitas confirmar tu número de tarjeta y contraseña:",
-    cta: "Reclamar mi bono",
-    phishing: true,
-    razon: "El dominio real es <strong>vivela.lat-premios.net</strong> (un subdominio externo). Además pide <strong>datos bancarios y contraseña</strong>: nunca hagas eso."
-  },
-  {
-    from: "soporte@vivela.lat",
-    to: "tu.correo@vivela.lat",
-    subject: "Mantenimiento programado del sistema este sábado",
-    text: "El área de TI informa que el sábado de 8:00 pm a 11:00 pm se realizará mantenimiento programado. Durante ese horario el sistema podría estar intermitente.",
-    cta: "Más información",
-    phishing: false,
-    razon: "Comunicación interna típica, sin urgencia, sin pedir datos y desde el dominio correcto."
-  }
 ];
 
 var juego = { idx: 0, score: 0, streak: 0, respondida: false };
