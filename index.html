@@ -54,8 +54,10 @@
       margin-right: auto;
     }
 
-    .form-group label { font-size: 14px; font-weight: 500; color: #333; margin-bottom: 6px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; color: #333; margin-bottom: 6px; }
     .form-control {
+      display: block;
+      width: 100%;
       height: 48px; border-radius: 8px; border: 1px solid #e6e0ce;
       font-size: 14px; padding: 8px 16px; background: #fcfbf7;
     }
@@ -65,7 +67,8 @@
       background: #fff;
     }
 
-    .password-wrap { position: relative; }
+    .password-wrap { position: relative; display: block; width: 100%; }
+    .password-wrap .form-control { padding-right: 44px; }
     .password-wrap .toggle-password {
       position: absolute; right: 16px; top: 50%;
       transform: translateY(-50%); cursor: pointer; color: #555; font-size: 15px;
