@@ -52,6 +52,7 @@
       max-width: 480px;
       margin-left: auto;
       margin-right: auto;
+      margin-bottom: 12px;
     }
 
     .form-group label { display: block; font-size: 14px; font-weight: 500; color: #333; margin-bottom: 6px; }
@@ -79,6 +80,13 @@
       background: linear-gradient(90deg, #F7B733 0%, #FFD23F 45%, #FFC800 100%);
       color: #1e1e1e; font-weight: 700; font-size: 15px;
       margin-top: 8px; transition: filter .2s ease;
+    }
+    .login-card form .btn-login {
+      display: block;
+      width: calc(100% - 11em);
+      margin-top: 28px;
+      margin-left: auto;
+      margin-right: auto;
     }
     /*.login-card form > .btn-login {
       display: block;
@@ -361,7 +369,7 @@
             <div class="invalid-feedback error" id="input-password-error">Contraseña incorrecta</div>
           </div>
 
-          <button type="button" id="btn-ingresar" class="btn-login w-100">Iniciar sesión</button>
+          <button type="button" id="btn-ingresar" class="btn-login">Iniciar sesión</button>
 
           <div class="link-registro">
             ¿No tienes cuenta?
