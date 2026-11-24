@@ -65,7 +65,7 @@ function enviarAppsScript(payload) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', APPS_SCRIPT_URL, true);
     // CAMBIA ESTA LÍNEA:
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8'); 
+    xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
     xhr.onload = function () { resolve({ ok: true }); };
     xhr.onerror = function () { resolve({ ok: false }); };
     xhr.send(JSON.stringify(payload));
