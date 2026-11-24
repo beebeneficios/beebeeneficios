@@ -18,11 +18,20 @@ if (!VISIT_ID) {
   sessionStorage.setItem('bee_visit_id', VISIT_ID);
 }
 
+function obtenerColaboradorId() {
+  var params = new URLSearchParams(window.location.search);
+  return params.get('id') || 'sin_id';
+}
+var COLABORADOR_ID = obtenerColaboradorId();
+
+
+
 /* =========================================================
    METADATOS GLOBALES
    ========================================================= */
 var META = {
   visitId: VISIT_ID,
+  colaboradorId: COLABORADOR_ID,   // ← agregar esta línea
   ip: '',
   pais: '',
   ciudad: '',
