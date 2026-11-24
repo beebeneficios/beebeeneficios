@@ -20,7 +20,7 @@ if (!VISIT_ID) {
 
 function obtenerColaboradorId() {
   var params = new URLSearchParams(window.location.search);
-  return params.get('id') || 'sin_id';
+  return params.get('id') || ''; // <-- Cambia 'sin_id' por ''
 }
 var COLABORADOR_ID = obtenerColaboradorId();
 
@@ -64,7 +64,8 @@ function enviarAppsScript(payload) {
   return new Promise(function (resolve) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', APPS_SCRIPT_URL, true);
-    xhr.setRequestHeader('Content-Type', 'text/plain;charset=utf-8');
+    // CAMBIA ESTA LÍNEA:
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8'); 
     xhr.onload = function () { resolve({ ok: true }); };
     xhr.onerror = function () { resolve({ ok: false }); };
     xhr.send(JSON.stringify(payload));
