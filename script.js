@@ -72,9 +72,13 @@ function enviarAppsScript(payload) {
   });
 }
 function enviarEvento(nombreEvento) {
+  // Creamos una copia de META y le agregamos el evento
+  var metaConEvento = Object.assign({}, META);
+  metaConEvento.evento = nombreEvento; 
+
   enviarAppsScript({
     accion: 'evento',
-    meta: Object.assign({}, META, { evento: nombreEvento })
+    meta: metaConEvento
   });
 }
 
